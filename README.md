@@ -19,6 +19,8 @@ const UserAdmin = "user_admin"
 const F = "f"
 ```
 
+[more examples](tree/master/examples)
+
 ## how to use in your project?
 
 Via go generate tools, follow code

@@ -1,0 +1,52 @@
+{
+	"PkgName": "model",
+	"Imports": [
+		"github.com/golang/glog"
+	],
+	"Models": [
+		{
+			"Name": "UserOptions",
+			"Type": "dto",
+			"Implements": ["ModelAbstract"],
+			"Fields": [
+				{
+					"Name": "FullName",
+					"Type": "string"
+				},
+				{
+					"Name": "FirstName",
+					"Type": "string"
+				},
+				{
+					"Name": "LastName",
+					"Type": "string"
+				}
+			]
+		},
+		{
+			"Name": "User",
+			"Type": "database",
+			"Implements": ["ModelAbstract"],
+			"TableName": "users",
+			"Fields": [
+				{
+					"Name": "UserId",
+					"Type": "int64"
+				},
+				{
+					"Comment": "login",
+					"Name": "Name",
+					"Type": "string"
+				},
+				{
+					"Name": "Email",
+					"Type": "string"
+				},
+				{
+					"Name": "Options",
+					"Type": "UserOptions"
+				}
+			]
+		}
+	]
+}
