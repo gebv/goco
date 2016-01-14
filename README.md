@@ -32,6 +32,8 @@ Via go generate tools, follow code
 
 ## Helpful functions
 
+[Extends](EXTENDS.md)
+
 ### FromJson(obj interface{}, data interface{}) error
 
 ``` golang
