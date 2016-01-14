@@ -19,3 +19,17 @@ func TestToLower(t *testing.T) {
 		t.Errorf("not expected value: %s", v)
 	}
 }
+
+func TestToUpper(t *testing.T) {
+	if v := toUpper("first name", ""); "FirstName" != v {
+		t.Errorf("not expected value: %s", v)
+	}
+
+	if v := toUpper("first_name", ""); "FirstName" != v {
+		t.Errorf("not expected value: %s", v)
+	}
+
+	if v := toUpper("fIrst_name", ""); "FIrstName" != v {
+		t.Errorf("not expected value: %s", v)
+	}
+}
