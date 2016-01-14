@@ -71,7 +71,7 @@ func (m CodeModelDTO) Generate() []byte {
 
 	// Fields
 	c.Printf("// Fields extract of fields from map\n")
-	c.Printf("func (%s %s) Fields(fields ...string) map[string]interface{} {\n", selfName, m.Name)
+	c.Printf("func (%s %s) Fields(fields ...string) ([]string, []interface{}) {\n", selfName, m.Name)
 	c.Printf("return extractFieldsFromMap(%s.Maps(), fields...)\n}\n\n", selfName)
 
 	return c.Format()
