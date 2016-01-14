@@ -45,14 +45,14 @@ func toLower(s, replace string) string {
 			continue
 		}
 
-		if index > 0 && hasSep {
-			res.WriteString(replace)
-		}
-
 		if unicode.IsUpper(runeValue) {
 
-			res.WriteRune(unicode.ToLower(runeValue))
-			continue
+			runeValue = unicode.ToLower(runeValue)
+			hasSep = true
+		}
+
+		if index > 0 && hasSep {
+			res.WriteString(replace)
 		}
 
 		// IsLower

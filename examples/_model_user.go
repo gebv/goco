@@ -47,11 +47,11 @@ func (model *UserOptions) TransformFrom(in interface{}) error {
 func (u UserOptions) Maps() map[string]interface{} {
 	maps := u.ModelAbstract.Maps()
 	// FullName
-	maps["fullname"] = u.FullName
+	maps["fullname"] = &u.FullName
 	// FirstName
-	maps["firstname"] = u.FirstName
+	maps["firstname"] = &u.FirstName
 	// LastName
-	maps["lastname"] = u.LastName
+	maps["lastname"] = &u.LastName
 	return maps
 }
 
@@ -116,13 +116,13 @@ func (model *User) TransformFrom(in interface{}) error {
 func (u User) Maps() map[string]interface{} {
 	maps := u.ModelAbstract.Maps()
 	// UserId
-	maps["userid"] = u.UserId
+	maps["userid"] = &u.UserId
 	// Name	login
-	maps["name"] = u.Name
+	maps["name"] = &u.Name
 	// Email
-	maps["email"] = u.Email
+	maps["email"] = &u.Email
 	// Options
-	maps["options"] = u.Options
+	maps["options"] = &u.Options
 	return maps
 }
 
