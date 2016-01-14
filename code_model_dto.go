@@ -64,19 +64,33 @@ func (m CodeModelDTO) Generate() []byte {
 	selfName := firstLower(m.Name)
 
 	// Maps
-	c.Printf("func (%s %s) Maps() map[string]interface{} {\n", selfName, m.Name)
-	c.Printf("maps := %s.ModelAbstract.Maps()\n", selfName)
-	c.buf.Write(m.Fields.InMap(m.Name))
-	c.Printf("return maps\n}\n\n")
+	// TODO: move to extends?
+	if existValueArrayString(m.Implements, "ModelAbstract") {
+		c.Printf("func (%s %s) Maps() map[string]interface{} {\n", selfName, m.Name)
+		c.Printf("maps := %s.ModelAbstract.Maps()\n", selfName)
+		c.buf.Write(m.Fields.InMap(m.Name))
+		c.Printf("return maps\n}\n\n")
+	}
 
 	// Fields
 	c.Printf("// Fields extract of fields from map\n")
 	c.Printf("func (%s %s) Fields(fields ...string) ([]string, []interface{}) {\n", selfName, m.Name)
 	c.Printf("return ExtractFieldsFromMap(%s.Maps(), fields...)\n}\n\n", selfName)
 
-	c.Printf("// FromIoReader extract of fields from map\n")
+	//
+	c.Printf("// FromJson data as []byte or io.Reader\n")
 	c.Printf("func (%s *%s) FromJson(data interface{}) error {\n", selfName, m.Name)
 	c.Printf("return FromJson(%s, data)\n}\n\n", selfName)
 
 	return c.Format()
+}
+
+func existValueArrayString(arr []string, value string) bool {
+	for _, _value := range arr {
+		if _value == value {
+			return true
+		}
+	}
+
+	return false
 }
