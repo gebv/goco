@@ -19,7 +19,7 @@ const UserAdmin = "user_admin"
 const F = "f"
 ```
 
-[more examples](tree/master/examples)
+[more examples](https://github.com/gebv/goco/tree/master/examples)
 
 ## how to use in your project?
 
