@@ -28,6 +28,74 @@ Via go generate tools, follow code
 ...
 ```
 
+## Helpful functions
+
+### FromJson(obj interface{}, data interface{}) error
+
+``` golang
+func FromJson(obj interface{}, data interface{}) error {
+    switch data.(type) {
+    case io.Reader:
+        decoder := json.NewDecoder(data.(io.Reader))
+        return decoder.Decode(obj)
+    case []byte:
+        return json.Unmarshal(data.([]byte), obj)
+    }
+
+    return ErrNotSupported
+}
+```
+
+Test
+``` golang
+func TestFromJson(t *testing.T) {
+    obj := struct {
+        A string `json:"a"`
+    }{}
+
+    if err := FromJson(&obj, []byte(`{"a": "b"}`)); err != nil {
+        t.Error(err)
+    }
+
+    if obj.A != "b" {
+        t.Error("not expected value")
+    }
+
+    data := bytes.NewReader([]byte(`{"a": "c"}`))
+
+    if err := FromJson(&obj, data); err != nil {
+        t.Error(err)
+    }
+
+    if obj.A != "c" {
+        t.Error("not expected value")
+    }
+}
+```
+
+### ExtractFieldsFromMap(m map[string]interface{}, without ...string) (keys []string, fields []interface{})
+
+``` golang
+func ExtractFieldsFromMap(m map[string]interface{}, without ...string) (keys []string, fields []interface{}) {
+    _without := make(map[string]bool)
+
+    for _, v := range without {
+        _without[v] = true
+    }
+
+    for fieldName, field := range m {
+        if !_without[fieldName] {
+            continue
+        }
+
+        keys = append(keys, fieldName)
+        fields = append(fields, field)
+    }
+
+    return
+}
+```
+
 # Supported types
 
 * consts - ...

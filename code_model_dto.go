@@ -74,5 +74,9 @@ func (m CodeModelDTO) Generate() []byte {
 	c.Printf("func (%s %s) Fields(fields ...string) ([]string, []interface{}) {\n", selfName, m.Name)
 	c.Printf("return ExtractFieldsFromMap(%s.Maps(), fields...)\n}\n\n", selfName)
 
+	c.Printf("// FromIoReader extract of fields from map\n")
+	c.Printf("func (%s *%s) FromJson(data interface{}) error {\n", selfName, m.Name)
+	c.Printf("return FromJson(%s, data)\n}\n\n", selfName)
+
 	return c.Format()
 }
