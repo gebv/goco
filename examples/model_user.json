@@ -46,6 +46,55 @@
 					"Name": "Options",
 					"Type": "UserOptions"
 				}
+			],
+			"Transformer": {
+				"To": [
+					{
+						"Name": "UserShortInfo",
+						"Map": {
+							"Name": "Name",
+							"FullName": "Options.FullName"
+						}
+					}
+				],
+				"From": [
+					{
+						"Name": "UserUpdateEmail",
+						"Map": {
+							"Email": "Email"
+						}
+					}
+				]
+			}
+		},
+		{
+			"Name": "UserUpdateEmail",
+			"Type": "dto",
+			"Fields": [
+				{
+					"Name": "Email",
+					"Type": "string",
+					"Tags": {
+						"validator": "required,email"
+					}
+				}
+			]
+		},
+		{
+			"Name": "UserShortInfo",
+			"Type": "dto",
+			"Fields": [
+				{
+					"Name": "Name",
+					"Type": "string",
+					"Tags": {
+						"json":"login"
+					}
+				},
+				{
+					"Name": "FullName",
+					"Type": "string"
+				}
 			]
 		}
 	]

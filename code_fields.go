@@ -38,6 +38,16 @@ func (f Fields) InMap(modelName string) []byte {
 	return c.buf.Bytes()
 }
 
+func (f Fields) InMapInline(modelName string) []byte {
+	c := new(Code)
+
+	for _, field := range f {
+		c.buf.Write(field.InMapInline(modelName))
+	}
+
+	return c.buf.Bytes()
+}
+
 type CodeField struct {
 	Comment  string
 	Name     string // Field name
@@ -84,6 +94,22 @@ func (f CodeField) InMap(modelName string) []byte {
 	c := new(Code)
 	c.Printf("// %s\t%s\n", f.Name, f.Comment)
 	c.Printf("maps[\"%s\"] = %s.%s", dbName, selfName, f.Name)
+	c.Printf("\n")
+
+	return c.buf.Bytes()
+}
+
+func (f CodeField) InMapInline(modelName string) []byte {
+	//
+	selfName := firstLower(modelName)
+	dbName := strings.TrimSpace(f.DBName)
+	if len(dbName) == 0 {
+		dbName = toLower(f.Name, "_")
+	}
+
+	c := new(Code)
+	c.Printf("// %s\t%s\n", f.Name, f.Comment)
+	c.Printf("\"%s\": &%s.%s,", dbName, selfName, f.Name)
 	c.Printf("\n")
 
 	return c.buf.Bytes()

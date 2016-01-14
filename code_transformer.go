@@ -58,7 +58,7 @@ func (t TransofmerFromArray) Generate(modelName string) []byte {
 			}
 		}
 	}
-	c.Println("default:\n\tglog.Errorf(\"Not supported type %v\",in);\n\treturn ErrNotSupported\n}")
+	c.Println("default:\n\tglog.Errorf(\"Not supported type %v\",in);\n\treturn ErrNotSupported\n}\nreturn nil\n")
 	c.Printf("}\n")
 
 	return c.Format()
