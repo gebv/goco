@@ -21,6 +21,11 @@ const F = "f"
 
 [more examples](https://github.com/gebv/goco/tree/master/examples)
 
+``` bash
+$ ./bin/goco -config=./examples/model_user.json -out=./examples/_model_user.go -type=file_models
+```
+
+
 ## how to use in your project?
 
 Via go generate tools, follow code
