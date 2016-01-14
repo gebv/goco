@@ -1,0 +1,15 @@
+{
+	"PkgName": "packagename",
+	"Imports": [],
+	"Models": [
+		{
+			"Type": "database"
+		},
+		{
+			"Type": "dto"
+		},
+		{
+			"Type": "dto"
+		}
+	]
+}
