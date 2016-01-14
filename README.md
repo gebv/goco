@@ -1,0 +1,2 @@
+# goco
+Generate golang code
