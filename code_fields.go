@@ -93,7 +93,7 @@ func (f CodeField) InMap(modelName string) []byte {
 
 	c := new(Code)
 	c.Printf("// %s\t%s\n", f.Name, f.Comment)
-	c.Printf("maps[\"%s\"] = %s.%s", dbName, selfName, f.Name)
+	c.Printf("maps[\"%s\"] = &%s.%s", dbName, selfName, f.Name)
 	c.Printf("\n")
 
 	return c.buf.Bytes()
