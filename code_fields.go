@@ -64,19 +64,16 @@ func (f CodeField) InStruct() []byte {
 	c := new(Code)
 	c.Printf("// %s\t%s\n", f.Name, f.Comment)
 	c.Printf("%s\t%s", f.Name, f.TypeName)
+	c.Printf("\t`")
+	if _, existJson := f.Tags["json"]; !existJson {
+		c.Printf("json:\"%s\" ", toLower(f.Name, "_"))
+	}
 	if len(f.Tags) > 0 {
-		c.Printf("\t`")
-
-		if _, existJson := f.Tags["json"]; !existJson {
-			c.Printf("json:\"%s\" ", toLower(f.Name, "_"))
-		}
-
 		for tagKey, tagValue := range f.Tags {
 			c.Printf("%s:\"%s\" ", tagKey, tagValue)
 		}
-
-		c.Printf("`")
 	}
+	c.Printf("`")
 	c.Printf("\n")
 
 	return c.buf.Bytes()
