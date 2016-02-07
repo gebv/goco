@@ -66,12 +66,12 @@ func (m CodeModelDTO) Generate() []byte {
 	// Maps
 	// TODO: move to extends?
 	if existValueArrayString(m.Implements, "ModelAbstract") {
-		c.Printf("func (%s %s) Maps() map[string]interface{} {\n", selfName, m.Name)
+		c.Printf("func (%s *%s) Maps() map[string]interface{} {\n", selfName, m.Name)
 		c.Printf("maps := %s.ModelAbstract.Maps()\n", selfName)
 		c.buf.Write(m.Fields.InMap(m.Name))
 		c.Printf("return maps\n}\n\n")
 	} else {
-		c.Printf("func (%s %s) Maps() map[string]interface{} {\n", selfName, m.Name)
+		c.Printf("func (%s *%s) Maps() map[string]interface{} {\n", selfName, m.Name)
 		c.Println("return map[string]interface{}{")
 		c.buf.Write(m.Fields.InMapInline(m.Name))
 		c.Printf("\n}\n}\n")
